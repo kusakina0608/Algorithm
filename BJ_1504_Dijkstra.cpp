@@ -68,7 +68,7 @@ int main(void){
     x = go(1, V2);
     y = b;
     z = go(V1, N);
-    
+
     int result1 = 0, result2 = 0;
     if(b==-1){
         result1=INF;
