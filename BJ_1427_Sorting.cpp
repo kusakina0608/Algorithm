@@ -1,11 +1,10 @@
-//
+// TODO change to C++ style
 // Created by Kina on 2020/05/04.
 //
 #include <stdio.h>
 #include <string.h>
 
 int main(void){
-    // TODO change to C++ style
     char s[] = "1000000000";
     int n_digit, i, j;
     int d[10] = {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
