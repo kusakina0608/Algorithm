@@ -14,7 +14,7 @@ int bfs(int** map, int height, int width){
     bool** check=new bool*[height];
     for(int i=0; i<height; i++){
         check[i]=new bool[width];
-        memset(check[i], 0, sizeof(check[i]));
+        memset(check[i], 0, sizeof(bool)*width);
     }
     deque<pair<int, int>> dq;
     deque<int> qq;
@@ -52,6 +52,7 @@ int bfs(int** map, int height, int width){
             }
         }
     }
+    return -1;
 }
 
 int main(void){
