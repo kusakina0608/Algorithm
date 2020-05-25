@@ -3,9 +3,9 @@ C++ Algorithm
 
 
 
-Prefix "BJ" indicates that source of the problem is [Baekjoon Online Judge](www.acmicpc.net)
+Prefix "BJ" indicates that source of the problem is [Baekjoon Online Judge](https://www.acmicpc.net/)
 
-Prefix "SWEA" indicates that source of the problem is [SW Expert Academy](swexpertacademy.com)
+Prefix "SWEA" indicates that source of the problem is [SW Expert Academy](https://swexpertacademy.com/)
 
 
 
