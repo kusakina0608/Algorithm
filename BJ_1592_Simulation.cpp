@@ -23,7 +23,7 @@ int main(void){
             if(cur_idx>=num){
                 cur_idx%=num;
             }
-        }else{/
+        }else{
             cur_idx-=jump_amount;
             if(cur_idx<0){
                 cur_idx+=num;
