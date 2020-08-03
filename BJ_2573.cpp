@@ -26,7 +26,6 @@ int k_decrese_amount(int y, int x) {
 	if (arr2d[y][x] < cnt) {
 		cnt = arr2d[y][x];
 	}
-	cout << "y: " << y << ", x: " << x << ", amount: " << cnt<<'\n';
 	return cnt;
 }
 
@@ -46,24 +45,20 @@ void k_reset_visited() {
 	}
 }
 
-void dfs(int y, int x) {
+void dfs_melt(int y, int x) {
 	top = 0;
 	stack_y[top] = y;
 	stack_x[top] = x;
 	while (-1 != top) {
 		int cy = stack_y[top];
-		int cx = stack_y[top];
+		int cx = stack_x[top];
 		top--;
-		cout << "\n(" << cy << ", " << cx << "): ";
-		cout << "conditions: " << (arr2d[cy][cx] != 0) << !visited[cy][cx] << '\n';
-		if (arr2d[cy][cx] != 0 && !visited[cy][cx]) {
+		if (!visited[cy][cx]) {
 			visited[cy][cx] = true;
 			arr2d[cy][cx] -= k_decrese_amount(cy, cx);
 			for (int i = 0; i < 4; i++) {
 				int ny = cy + dy[i];
 				int nx = cx + dx[i];
-				cout << "[i: " << i << ']';
-				cout << "conditions: " << k_on_bound(ny, nx) << (arr2d[ny][nx] != 0) << !visited[ny][nx] << '\n';
 				if (k_on_bound(ny, nx) && arr2d[ny][nx] != 0 && !visited[ny][nx]) {
 					++top;
 					stack_y[top] = ny;
@@ -74,16 +69,48 @@ void dfs(int y, int x) {
 	}
 }
 
+void dfs_count(int y, int x) {
+    top = 0;
+    stack_y[top] = y;
+    stack_x[top] = x;
+    while (-1 != top) {
+        int cy = stack_y[top];
+        int cx = stack_x[top];
+        top--;
+        if (!visited[cy][cx]) {
+            visited[cy][cx] = true;
+            for (int i = 0; i < 4; i++) {
+                int ny = cy + dy[i];
+                int nx = cx + dx[i];
+                if (k_on_bound(ny, nx) && arr2d[ny][nx] != 0 && !visited[ny][nx]) {
+                    ++top;
+                    stack_y[top] = ny;
+                    stack_x[top] = nx;
+                }
+            }
+        }
+    }
+}
+
 int search_glacier() {
 	int n_cluster = 0;
+    k_reset_visited();
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			if (arr2d[i][j] != 0 && !visited[i][j]) {
-				dfs(i, j);
-				n_cluster++;
+				dfs_melt(i, j);
 			}
 		}
 	}
+    k_reset_visited();
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < M; j++) {
+            if (arr2d[i][j] != 0 && !visited[i][j]) {
+                dfs_count(i, j);
+                n_cluster++;
+            }
+        }
+    }
 	return n_cluster;
 }
 
@@ -103,13 +130,16 @@ int main(void) {
 	cin >> N >> M;
 	k_read_data();
 	int year = 0;
-	int n = 0;
-	do {
-		n = search_glacier();
-		k_show_glacier();
-		k_reset_visited();
-		year++;
-	} while (n < 2);
+	int n; 
+	while(true){
+        n = search_glacier();
+        //k_show_glacier();
+        year++;
+        if(n != 1){
+            break;
+        }
+	}
+
 	if (n < 2) {
 		cout << 0;
 	}
